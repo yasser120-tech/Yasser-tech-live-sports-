@@ -1,0 +1,237 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>YASSER TECH LIVE SPORTS</title>
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
+<style>
+*{margin:0;padding:0;box-sizing:border-box;font-family:'Poppins',sans-serif;}
+body{background:#000;color:#fff;overflow-x:hidden;position:relative;}
+video.bg-video{position:fixed;right:0;bottom:0;min-width:100%;min-height:100%;z-index:-2;filter:brightness(0.25);}
+.overlay{position:fixed;top:0;left:0;width:100%;height:100%;background:radial-gradient(circle at center, rgba(255,200,0,0.15), #000 70%);z-index:-1;}
+
+/* Header */
+header{text-align:center;padding:80px 20px 40px;position:relative;z-index:2;}
+header h1{font-size:3rem;color:#ffc800;letter-spacing:2px;animation:pulse 2s infinite alternate;}
+header p{opacity:.8;margin-top:10px;font-size:1.1rem;}
+@keyframes pulse{0%{color:#ffc800;}50%{color:#fff;}100%{color:#ffc800;}}
+
+/* Floating elements */
+.floating{position:absolute;border-radius:50%;opacity:0.3;animation:floatAnim linear infinite;z-index:-1;}
+@keyframes floatAnim{0%{transform:translateY(0);}50%{transform:translateY(-50px);}100%{transform:translateY(0);}}
+
+/* Search */
+.search-box{max-width:600px;margin:30px auto;display:flex;gap:10px;position:relative;z-index:2;}
+.search-box input{flex:1;padding:15px 15px 15px 40px;border-radius:30px;border:none;outline:none;}
+.search-box button{padding:15px 30px;border:none;border-radius:30px;background:#ffc800;font-weight:600;cursor:pointer;}
+.search-box i{position:absolute;left:15px;top:50%;transform:translateY(-50%);color:#000;opacity:.7;}
+#loading{text-align:center;margin-top:20px;display:none;color:#ffc800;}
+
+/* Sections */
+section{padding:40px 5%;position:relative;z-index:2;}
+section h2{margin-bottom:20px;color:#ffc800;}
+.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(180px,1fr));gap:20px;}
+.card{background:#111;border-radius:15px;overflow:hidden;transition:.3s;animation:cardPop 0.5s;}
+.card:hover{transform:scale(1.05);}
+@keyframes cardPop{0%{opacity:0;transform:scale(0.5);}100%{opacity:1;transform:scale(1);}}
+.card img{width:100%;height:270px;object-fit:cover;transition:0.3s;}
+.card:hover img{transform:scale(1.1);}
+.card .info{padding:15px;}
+.card .info h4{font-size:1rem;}
+.card .info small{opacity:.7;}
+.card a{display:block;margin-top:10px;text-align:center;padding:10px;background:#ffc800;color:#000;border-radius:20px;text-decoration:none;font-weight:600;}
+
+/* Slideshow */
+.slideshow{width:90%;margin:auto;overflow:hidden;border-radius:15px;position:relative;margin-bottom:40px;background:rgba(255,255,255,0.05);}
+.slides{display:flex;transition:all 0.5s ease;}
+.slide{min-width:100%;padding:20px;font-size:1.1rem;text-align:center;color:#fff;font-weight:600;animation:slideGlow 1.5s infinite alternate;}
+@keyframes slideGlow{0%{text-shadow:0 0 10px #ffc800;}50%{text-shadow:0 0 20px #fff;}100%{text-shadow:0 0 10px #ffc800;}}
+
+/* Filters */
+.filters{display:flex;justify-content:center;gap:10px;margin-bottom:20px;flex-wrap:wrap;}
+.filters select{padding:10px 15px;border-radius:20px;border:none;outline:none;background:#222;color:#fff;cursor:pointer;}
+
+/* Footer & WhatsApp */
+.footer{padding:40px 20px;text-align:center;opacity:.8;font-size:.9rem;position:relative;z-index:2;}
+.footer a{color:#ffc800;text-decoration:none;margin-top:5px;display:inline-block;}
+.whatsapp-btn{position:fixed;bottom:20px;right:20px;background:#25D366;color:#fff;padding:15px 20px;border-radius:50px;font-weight:bold;text-decoration:none;z-index:10;display:flex;align-items:center;gap:10px;box-shadow:0 5px 15px rgba(0,0,0,.5);}
+</style>
+</head>
+<body>
+
+<!-- Background video -->
+<video class="bg-video" autoplay muted loop>
+<source src="https://cdn.coverr.co/videos/coverr-watching-tv-1564/1080p.mp4" type="video/mp4">
+</video>
+<div class="overlay"></div>
+
+<!-- Floating mbwembwe -->
+<div class="floating" style="width:50px;height:50px;top:100px;left:50px;background:#ffc800;animation-duration:7s;"></div>
+<div class="floating" style="width:30px;height:30px;top:200px;left:300px;background:#fff;animation-duration:10s;"></div>
+<div class="floating" style="width:40px;height:40px;top:400px;left:600px;background:#ff0;animation-duration:12s;"></div>
+<div class="floating" style="width:60px;height:60px;top:500px;left:100px;background:#ffa500;animation-duration:9s;"></div>
+
+<!-- Header -->
+<header>
+<h1>YASSER TECH LIVE SPORTS</h1>
+<p>Live Football & Sports • Official Scores & Streams</p>
+</header>
+
+<!-- Search -->
+<div class="search-box">
+<i>🔍</i>
+<input type="text" id="searchInput" placeholder="Search team or match...">
+<button onclick="searchMatch()">Search</button>
+</div>
+<div id="loading">🔎 Searching...</div>
+
+<!-- Slideshow -->
+<section>
+<h2>Headlines</h2>
+<div class="slideshow" id="slideshow">
+<div class="slides" id="slidesContainer">
+<div class="slide">Live Football Matches 2026 - Stay Tuned!</div>
+<div class="slide">Breaking News: Premier League Highlights!</div>
+<div class="slide">Upcoming Champions League Fixtures</div>
+<div class="slide">Top Scorers & Stats 2026</div>
+</div>
+</div>
+</section>
+
+<!-- Live Matches -->
+<section>
+<h2>Live Matches</h2>
+
+<!-- Filters -->
+<div class="filters">
+<select id="leagueFilter" onchange="applyFilters()">
+<option value="">All Leagues</option>
+<option value="Premier League">Premier League</option>
+<option value="La Liga">La Liga</option>
+<option value="Serie A">Serie A</option>
+</select>
+
+<select id="teamFilter" onchange="applyFilters()">
+<option value="">All Teams</option>
+<option value="Liverpool">Liverpool</option>
+<option value="Manchester City">Manchester City</option>
+<option value="Real Madrid">Real Madrid</option>
+<option value="Barcelona">Barcelona</option>
+</select>
+</div>
+
+<div class="grid" id="liveMatches"></div>
+</section>
+
+<!-- Trending Matches -->
+<section>
+<h2>Trending Matches</h2>
+<div class="grid" id="trendingMatches"></div>
+</section>
+
+<!-- Top Goals / Highlights -->
+<section>
+<h2>Top Goals / Highlights</h2>
+<div class="grid" id="highlights"></div>
+</section>
+
+<!-- Footer -->
+<div class="footer">
+© 2026 YASSER TECH SOLUTIONS <br>
+📞 Owner: +255 691 548 458 <br>
+<a href="https://whatsapp.com/channel/0029Vb7BkaP7dmeg0yZiCS1I" target="_blank">Join WhatsApp Channel</a>
+</div>
+
+<!-- WhatsApp floating -->
+<a class="whatsapp-btn" href="https://whatsapp.com/channel/0029Vb7BkaP7dmeg0yZiCS1I" target="_blank">📲 WhatsApp Channel</a>
+
+<script>
+const API_KEY = "dd0b1f710e97d9f2aee05855863dc2dc";
+
+// Slideshow
+let currentSlide=0;
+const slides = document.getElementById("slidesContainer").children;
+setInterval(()=>{
+slides[currentSlide].style.display="none";
+currentSlide=(currentSlide+1)%slides.length;
+slides[currentSlide].style.display="block";
+},3000);
+for(let i=0;i<slides.length;i++){slides[i].style.display=i===0?"block":"none";}
+
+// Store all live matches here for filtering
+let allLiveMatches = [
+  {homeTeam:"Liverpool",awayTeam:"Manchester City",competition:"Premier League",date:"2026-01-16",stream:"#"},
+  {homeTeam:"Real Madrid",awayTeam:"Barcelona",competition:"La Liga",date:"2026-01-17",stream:"#"},
+  {homeTeam:"AC Milan",awayTeam:"Juventus",competition:"Serie A",date:"2026-01-18",stream:"#"}
+];
+
+const liveContainer = document.getElementById("liveMatches");
+function displayMatches(matches){
+  liveContainer.innerHTML="";
+  if(matches.length===0){
+    liveContainer.innerHTML="No matches found.";
+    return;
+  }
+  matches.forEach(m=>{
+    liveContainer.innerHTML+=`<div class="card">
+    <div class="info">
+      <h4>${m.homeTeam} vs ${m.awayTeam}</h4>
+      <small>${m.competition} • ${m.date}</small>
+      <a href="${m.stream}" target="_blank">Watch Live</a>
+    </div></div>`;
+  });
+}
+
+// Apply filters
+function applyFilters(){
+  const league=document.getElementById("leagueFilter").value;
+  const team=document.getElementById("teamFilter").value;
+  let filtered = allLiveMatches.filter(m=>{
+    return (league==="" || m.competition===league) && 
+           (team==="" || m.homeTeam===team || m.awayTeam===team);
+  });
+  displayMatches(filtered);
+}
+
+// Initial display
+displayMatches(allLiveMatches);
+
+// Trending Matches Example
+const trendingList=["Liverpool vs Man City","Real Madrid vs Barcelona","Chelsea vs Arsenal"];
+const trendingDiv=document.getElementById("trendingMatches");
+trendingList.forEach(title=>{
+  trendingDiv.innerHTML+=`<div class="card">
+  <div class="info">
+    <h4>${title}</h4>
+    <small>Upcoming 2026</small>
+    <a href="https://www.google.com/search?q=watch+${encodeURIComponent(title)}" target="_blank">Watch Official</a>
+  </div></div>`;
+});
+
+// Top Goals / Highlights Example
+const highlights=["Messi Goal vs PSG","Ronaldo Free Kick","Lewandowski Hat-trick","Mbappe Dribble"];
+const highlightsDiv=document.getElementById("highlights");
+highlights.forEach(h=>{
+  highlightsDiv.innerHTML+=`<div class="card">
+  <img src="https://via.placeholder.com/300x200?text=${encodeURIComponent(h)}">
+  <div class="info">
+    <h4>${h}</h4>
+    <small>Highlight 2026</small>
+    <a href="https://www.google.com/search?q=${encodeURIComponent(h)}" target="_blank">Watch Clip</a>
+  </div>
+  </div>`;
+});
+
+// Search Matches
+function searchMatch(){
+  const query=document.getElementById("searchInput").value.trim().toLowerCase();
+  if(!query) return;
+  const filtered = allLiveMatches.filter(m=> 
+    m.homeTeam.toLowerCase().includes(query) || 
+    m.awayTeam.toLowerCase().includes(query));
+  displayMatches(filtered);
+}
+</script>
+</body>
+  </html>
